@@ -62,7 +62,7 @@ public class OrderService {
 		ResultSet rs = null;
 		try {
 			connection = DBUtils.getConnection();
-			String sql = " select * from t_order where t_order_id = ? ";
+			String sql = " select * from t_order where t_order_price = ?";
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();

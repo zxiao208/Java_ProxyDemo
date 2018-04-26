@@ -1,9 +1,9 @@
 import demo1.GSShopPhone;
 import demo1.WJProxy;
 
-import demo3.IOrder;
-import demo3.OrderService;
+import demo4.IOrder;
 import demo4.OrderInvocationHandler;
+import demo4.OrderService;
 
 import java.lang.reflect.Proxy;
 import java.util.List;
@@ -32,34 +32,33 @@ public class Main {
         // 第一步：定义->目标接口->IOrder
         // 第二步：定义->具体实现类->SubjectOrder
         // 第三步：定义->代理对象->ProxyOrder
-         OrderService orderService = new OrderService();
-         List<IOrder> orderList = orderService.getOrderList("里");
-         for (IOrder orderBean : orderList) {
-         System.out.println("订单ID: " + orderBean.getOrderId() + "订单名称: "
-         + orderBean.getOrderName() + " 订单价格："
-         + orderBean.getOrderPrice());
-         }
-
+//         OrderService orderService = new OrderService();
+//         List<IOrder> orderList = orderService.getOrderList("lisan");
+//         for (IOrder orderBean : orderList) {
+//         System.out.println("订单ID: " + orderBean.getOrderId() + "订单名称: "
+//         + orderBean.getOrderName() + " 订单价格："
+//         + orderBean.getOrderPrice());
+//         }
         // 动态代理
         // 角色划分
         // 目标接口：IOrder
         // 目标对象：OrderBean
         // 代理对象：proxy
-//        List<IOrder> orderList = OrderService.getOrderList();
-//        IOrder order = orderList.get(0);
+        List<IOrder> orderList = OrderService.getOrderList();
+        IOrder order = orderList.get(0);
         // 创建代理类
         // 参数一：类加载器
         // 参数二：代理接口
         // 参数三：代理回调
         // 说白了：就是方法监听(触发方法，必需调用方法才会回调，不会)
-//        IOrder proxy = (IOrder) Proxy.newProxyInstance(order.getClass()
-//                        .getClassLoader(), order.getClass().getInterfaces(),
-//                new OrderInvocationHandler("杜乙", order));
-//
-//
-//        System.out.println("订单ID: " + proxy.getOrderId());
-//        System.out.println("订单名称: " + proxy.getOrderName());
-        // System.out.println("订单价格: " + proxy.getOrderPrice());
+        IOrder proxy = (IOrder) Proxy.newProxyInstance(order.getClass()
+                        .getClassLoader(), order.getClass().getInterfaces(),
+                new OrderInvocationHandler("杜乙", order));
+
+
+        System.out.println("订单ID: " + proxy.getOrderId());
+        System.out.println("订单名称: " + proxy.getOrderName());
+        System.out.println("订单价格: " + proxy.getOrderPrice());
 
         //10:15分，继续，中场休息15分钟，洗澡，洗衣服
         //代理模式变种->后面8月31日开班之后，给补课，不一些架构设计（设计模式：具体的场景应用）
