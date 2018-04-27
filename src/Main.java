@@ -45,6 +45,15 @@ public class Main {
         // 目标对象：OrderBean
         // 代理对象：proxy
         List<IOrder> orderList = OrderService.getOrderList();
+        for(IOrder order:orderList){
+            IOrder proxy = (IOrder) Proxy.newProxyInstance(order.getClass()
+                            .getClassLoader(), order.getClass().getInterfaces(),
+                    new OrderInvocationHandler("杜乙", order));
+
+            System.out.println("订单ID: " + proxy.getOrderId());
+            System.out.println("订单名称: " + proxy.getOrderName());
+            System.out.println("订单价格: " + proxy.getOrderPrice());
+        }
         IOrder order = orderList.get(0);
         // 创建代理类
         // 参数一：类加载器
@@ -54,7 +63,6 @@ public class Main {
         IOrder proxy = (IOrder) Proxy.newProxyInstance(order.getClass()
                         .getClassLoader(), order.getClass().getInterfaces(),
                 new OrderInvocationHandler("杜乙", order));
-
 
         System.out.println("订单ID: " + proxy.getOrderId());
         System.out.println("订单名称: " + proxy.getOrderName());

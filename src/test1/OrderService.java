@@ -25,6 +25,7 @@ public class OrderService {
                  OrderBean orderBean = new OrderBean();
                 orderBean.setOrderId(rs.getString("t_order_id"));
                 orderBean.setOrderName(rs.getString("t_order_name"));
+                orderBean.setOrderUserName(rs.getString("t_order_username"));
                 orderBeans.add(orderBean);
             }
             // 正在准备服务器上传APK，客户端下载APK，动态更新本地应用（Android插件化开发）---表情包、模块
@@ -34,7 +35,7 @@ public class OrderService {
         } finally {
             DBUtils.close(connection, ps, rs);
         }
-            return null;
+            return orderBeans;
     }
 
     public static String getOrderPriceById(String id) {
